@@ -38,6 +38,28 @@
         .dark .card-hover:hover {
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
         }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="bg-bg-light dark:bg-bg-dark text-gray-900 dark:text-gray-100 transition-colors duration-300 font-chinese">
@@ -46,609 +68,814 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center space-x-4">
-                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center cursor-pointer" onclick="showMainPage()">
                         <span class="text-white font-bold text-lg">融</span>
                     </div>
-                    <h1 class="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent cursor-pointer" onclick="showMainPage()">
                         知族常樂
                     </h1>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#overview" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">遊戲概覽</a>
-                    <a href="#rules" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">遊戲規則</a>
-                    <a href="#scenarios" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">情境範例</a>
-                    <a href="#features" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">特色功能</a>
-                    <a href="#education" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">教育價值</a>
+                    <a href="#overview" onclick="showMainPage()" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">遊戲概覽</a>
+                    <a href="#rules" onclick="showRulesPage()" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">遊戲規則</a>
+                    <a href="#scenarios" onclick="showMainPage()" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">情境範例</a>
+                    <a href="#features" onclick="showMainPage()" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">特色功能</a>
+                    <a href="#education" onclick="showMainPage()" class="text-gray-700 dark:text-gray-300 hover:text-primary transition-colors">教育價值</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="pt-20 pb-16 gradient-bg min-h-screen flex items-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="max-w-4xl mx-auto">
-                <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                    知族常樂
-                    <span class="block text-3xl md:text-4xl font-normal mt-2 opacity-90">
-                        文化解難挑戰
-                    </span>
-                </h1>
-                <p class="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
-                    透過情境模擬促進文化理解<br>
-                    建構跨文化溝通橋樑的創新桌遊
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="bg-white text-primary px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors shadow-lg">
-                        🎮 立即開始遊戲
-                    </button>
-                    <button class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-primary transition-colors">
-                        📖 了解遊戲規則
-                    </button>
+    <!-- Main Page -->
+    <div id="mainPage" class="page active">
+        <!-- Hero Section -->
+        <section class="pt-20 pb-16 gradient-bg min-h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                        知族常樂
+                        <span class="block text-3xl md:text-4xl font-normal mt-2 opacity-90">
+                            文化解難挑戰
+                        </span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
+                        透過情境模擬促進文化理解<br>
+                        建構跨文化溝通橋樑的創新桌遊
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button onclick="showGameSimulator()" class="bg-white text-primary px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors shadow-lg">
+                            🎮 立即開始遊戲
+                        </button>
+                        <button onclick="showRulesPage()" class="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-primary transition-colors">
+                            📖 了解遊戲規則
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Game Overview -->
-    <section id="overview" class="py-20 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                    遊戲概覽
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    一款融合真實文化情境的互動桌遊，讓玩家在挑戰中學習跨文化理解與溝通技巧
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg card-hover">
-                    <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                        <span class="text-3xl">🎯</span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">遊戲目標</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        避免累積3個「邊緣化代幣」，透過智慧回應文化挑戰，成為最佳跨文化溝通者
+        <!-- Game Overview -->
+        <section id="overview" class="py-20 bg-gray-50 dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                        遊戲概覽
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                        一款融合真實文化情境的互動桌遊，讓玩家在挑戰中學習跨文化理解與溝通技巧
                     </p>
                 </div>
                 
-                <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg card-hover">
-                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-6">
-                        <span class="text-3xl">👥</span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">適合人數</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        3-8人，適合課堂教學、團隊建設、文化工作坊等多種場合
-                    </p>
-                </div>
-                
-                <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg card-hover">
-                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6">
-                        <span class="text-3xl">⏱️</span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">遊戲時間</h3>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
-                        45-90分鐘，時間長度可根據討論深度靈活調整
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Game Rules -->
-    <section id="rules" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                    遊戲規則
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    簡單易懂的規則設計，讓所有參與者都能快速上手
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                <div class="space-y-8">
-                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
-                        <div class="flex items-center mb-6">
-                            <div class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center font-bold mr-4">1</div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">初始設置</h3>
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg card-hover">
+                        <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">🎯</span>
                         </div>
-                        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
-                            <li class="flex items-center">
-                                <span class="text-green-500 mr-3">✅</span>
-                                每位玩家獲得1張投票卡
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-green-500 mr-3">✅</span>
-                                抽取5張手牌（挑戰卡/攻擊卡/文化卡/免死金牌）
-                            </li>
-                        </ul>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">遊戲目標</h3>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            避免累積3個「邊緣化代幣」，透過智慧回應文化挑戰，成為最佳跨文化溝通者
+                        </p>
                     </div>
-
-                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
-                        <div class="flex items-center mb-6">
-                            <div class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center font-bold mr-4">2</div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">回合流程</h3>
+                    
+                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg card-hover">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">👥</span>
                         </div>
-                        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
-                            <li>• 輪流抽牌，出現「挑戰卡」時暫停</li>
-                            <li>• 全體玩家根據情境卡題目即時回應</li>
-                            <li>• 牌背提供真實案例參考</li>
-                        </ul>
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">適合人數</h3>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            3-8人，適合課堂教學、團隊建設、文化工作坊等多種場合
+                        </p>
                     </div>
-
-                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
-                        <div class="flex items-center mb-6">
-                            <div class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center font-bold mr-4">3</div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">投票機制</h3>
+                    
+                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg card-hover">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">⏱️</span>
                         </div>
-                        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
-                            <li>• 匿名投出投票卡</li>
-                            <li>• 選出「最欠妥當回應」</li>
-                            <li>• 獲最高票玩家得1個代幣</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="space-y-8">
-                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
-                        <div class="flex items-center mb-6">
-                            <div class="w-10 h-10 bg-purple-500 text-white rounded-lg flex items-center justify-center font-bold mr-4">4</div>
-                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white">特殊卡牌功能</h3>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="flex items-start">
-                                <span class="text-2xl mr-3">🛡️</span>
-                                <div>
-                                    <strong class="text-gray-900 dark:text-white">免死金牌</strong>
-                                    <p class="text-gray-600 dark:text-gray-400">抵銷1次代幣</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <span class="text-2xl mr-3">🌏</span>
-                                <div>
-                                    <strong class="text-gray-900 dark:text-white">文化卡</strong>
-                                    <p class="text-gray-600 dark:text-gray-400">集2張同圖案可轉移攻擊目標</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <span class="text-2xl mr-3">⚔️</span>
-                                <div>
-                                    <strong class="text-gray-900 dark:text-white">攻擊卡</strong>
-                                    <p class="text-gray-600 dark:text-gray-400">指定玩家回答文化問題</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-8 rounded-2xl">
-                        <div class="flex items-center mb-4">
-                            <span class="text-2xl mr-3">⚠️</span>
-                            <h3 class="text-2xl font-bold text-red-800 dark:text-red-400">淘汰條件</h3>
-                        </div>
-                        <p class="text-red-700 dark:text-red-300 text-lg">
-                            累積3個代幣者「離開香港」（遊戲淘汰）
+                        <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">遊戲時間</h3>
+                        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                            45-90分鐘，時間長度可根據討論深度靈活調整
                         </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Game Scenarios -->
-    <section id="scenarios" class="py-20 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                    遊戲情境範例
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    體驗真實的跨文化挑戰情境，學習如何妥善處理文化差異
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-2 gap-8 mb-12">
-                <!-- Scenario 1 -->
-                <div class="bg-white dark:bg-card-dark rounded-2xl shadow-lg overflow-hidden card-hover">
-                    <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-2xl font-bold text-white">挑戰卡範例 #1</h3>
-                            <span class="bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-semibold">職場情境</span>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <div class="mb-6">
-                            <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🏢 午餐聚會風波</h4>
-                            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-                                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                                    你的團隊計劃週五午餐聚會慶祝項目完成。有位穆斯林同事因宗教因素不能參加酒吧聚餐，但沒有主動提及。當大家興奮討論聚會地點時，你注意到他顯得有些不自在...
-                                </p>
-                            </div>
-                        </div>
-                        
-                        <div class="space-y-4">
-                            <h5 class="font-semibold text-gray-900 dark:text-white">可能的回應選項：</h5>
-                            <div class="grid gap-3">
-                                <div class="flex items-start p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                                    <span class="text-red-500 mr-3 mt-1">❌</span>
-                                    <p class="text-red-700 dark:text-red-300">"他如果有問題應該自己說出來"</p>
-                                </div>
-                                <div class="flex items-start p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                                    <span class="text-yellow-500 mr-3 mt-1">⚠️</span>
-                                    <p class="text-yellow-700 dark:text-yellow-300">"我們可以改到素食餐廳，這樣比較安全"</p>
-                                </div>
-                                <div class="flex items-start p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                                    <span class="text-green-500 mr-3 mt-1">✅</span>
-                                    <p class="text-green-700 dark:text-green-300">"讓我們一起討論一個所有人都能舒適參與的地點"</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-                            <p class="text-sm text-blue-700 dark:text-blue-300">
-                                <strong>牌背學習重點：</strong> 宗教包容性、主動關懷、團隊凝聚力建立
-                            </p>
-                        </div>
-                    </div>
+        <!-- Game Scenarios -->
+        <section id="scenarios" class="py-20 bg-gray-50 dark:bg-gray-900">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                        遊戲情境範例
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                        體驗真實的跨文化挑戰情境，學習如何妥善處理文化差異
+                    </p>
                 </div>
 
-                <!-- Scenario 2 -->
-                <div class="bg-white dark:bg-card-dark rounded-2xl shadow-lg overflow-hidden card-hover">
-                    <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-2xl font-bold text-white">挑戰卡範例 #2</h3>
-                            <span class="bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-semibold">社交情境</span>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <div class="mb-6">
-                            <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🎉 生日派對邀請</h4>
-                            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-                                <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                                    你邀請新認識的南亞裔朋友參加生日派對。他禮貌地說"我考慮一下"，但之後一直沒有回覆。派對當天他沒有出現，你在社交媒體上看到他在家中的照片...
-                                </p>
+                <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                    <!-- Scenario 1 -->
+                    <div class="bg-white dark:bg-card-dark rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-2xl font-bold text-white">挑戰卡範例 #1</h3>
+                                <span class="bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-semibold">職場情境</span>
                             </div>
                         </div>
-                        
-                        <div class="space-y-4">
-                            <h5 class="font-semibold text-gray-900 dark:text-white">你的反應是：</h5>
-                            <div class="grid gap-3">
-                                <div class="flex items-start p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                                    <span class="text-red-500 mr-3 mt-1">❌</span>
-                                    <p class="text-red-700 dark:text-red-300">"明明有空卻不來，太不尊重人了"</p>
-                                </div>
-                                <div class="flex items-start p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                                    <span class="text-yellow-500 mr-3 mt-1">⚠️</span>
-                                    <p class="text-yellow-700 dark:text-yellow-300">"可能他不習慣參加這種聚會"</p>
-                                </div>
-                                <div class="flex items-start p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                                    <span class="text-green-500 mr-3 mt-1">✅</span>
-                                    <p class="text-green-700 dark:text-green-300">"關心地私下詢問是否有什麼顧慮，下次可以如何改善"</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
-                            <p class="text-sm text-purple-700 dark:text-purple-300">
-                                <strong>牌背學習重點：</strong> 間接溝通文化、面子觀念、跨文化友誼建立
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Scenario 3 -->
-            <div class="bg-white dark:bg-card-dark rounded-2xl shadow-lg overflow-hidden">
-                <div class="bg-gradient-to-r from-green-500 to-green-600 p-6">
-                    <div class="flex items-center justify-between">
-                        <h3 class="text-2xl font-bold text-white">攻擊卡範例</h3>
-                        <span class="bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-semibold">文化知識挑戰</span>
-                    </div>
-                </div>
-                <div class="p-8">
-                    <div class="grid lg:grid-cols-2 gap-8">
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🎯 快速問答挑戰</h4>
-                            <div class="space-y-4">
-                                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                                    <p class="font-semibold text-gray-900 dark:text-white mb-2">問題：</p>
-                                    <p class="text-gray-700 dark:text-gray-300">
-                                        在印度文化中，用左手遞東西給別人被認為是...？
+                        <div class="p-8">
+                            <div class="mb-6">
+                                <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🏢 午餐聚會風波</h4>
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
+                                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                        你的團隊計劃週五午餐聚會慶祝項目完成。有位穆斯林同事因宗教因素不能參加酒吧聚餐，但沒有主動提及。當大家興奮討論聚會地點時，你注意到他顯得有些不自在...
                                     </p>
                                 </div>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <button class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
-                                        A) 正常行為
-                                    </button>
-                                    <button class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
-                                        B) 不禮貌的
-                                    </button>
-                                    <button class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
-                                        C) 表示親密
-                                    </button>
-                                    <button class="p-3 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors">
-                                        D) 表示尊重
-                                    </button>
-                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🛡️ 特殊卡牌說明</h4>
+                            
                             <div class="space-y-4">
-                                <div class="flex items-start p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                                    <span class="text-2xl mr-3">🌏</span>
-                                    <div>
-                                        <p class="font-semibold text-gray-900 dark:text-white">文化卡</p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                            收集2張相同圖案可轉移攻擊目標至其他玩家
-                                        </p>
+                                <h5 class="font-semibold text-gray-900 dark:text-white">可能的回應選項：</h5>
+                                <div class="grid gap-3">
+                                    <div class="flex items-start p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                                        <span class="text-red-500 mr-3 mt-1">❌</span>
+                                        <p class="text-red-700 dark:text-red-300">"他如果有問題應該自己說出來"</p>
+                                    </div>
+                                    <div class="flex items-start p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                                        <span class="text-yellow-500 mr-3 mt-1">⚠️</span>
+                                        <p class="text-yellow-700 dark:text-yellow-300">"我們可以改到素食餐廳，這樣比較安全"</p>
+                                    </div>
+                                    <div class="flex items-start p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                                        <span class="text-green-500 mr-3 mt-1">✅</span>
+                                        <p class="text-green-700 dark:text-green-300">"讓我們一起討論一個所有人都能舒適參與的地點"</p>
                                     </div>
                                 </div>
-                                <div class="flex items-start p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
-                                    <span class="text-2xl mr-3">🛡️</span>
-                                    <div>
-                                        <p class="font-semibold text-gray-900 dark:text-white">免死金牌</p>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                            可抵銷一次代幣懲罰，每位玩家限用一次
-                                        </p>
+                            </div>
+
+                            <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                <p class="text-sm text-blue-700 dark:text-blue-300">
+                                    <strong>牌背學習重點：</strong> 宗教包容性、主動關懷、團隊凝聚力建立
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scenario 2 -->
+                    <div class="bg-white dark:bg-card-dark rounded-2xl shadow-lg overflow-hidden card-hover">
+                        <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-6">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-2xl font-bold text-white">挑戰卡範例 #2</h3>
+                                <span class="bg-white/20 text-white px-4 py-2 rounded-lg text-sm font-semibold">社交情境</span>
+                            </div>
+                        </div>
+                        <div class="p-8">
+                            <div class="mb-6">
+                                <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-4">🎉 生日派對邀請</h4>
+                                <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
+                                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                                        你邀請新認識的南亞裔朋友參加生日派對。他禮貌地說"我考慮一下"，但之後一直沒有回覆。派對當天他沒有出現，你在社交媒體上看到他在家中的照片...
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <h5 class="font-semibold text-gray-900 dark:text-white">你的反應是：</h5>
+                                <div class="grid gap-3">
+                                    <div class="flex items-start p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                                        <span class="text-red-500 mr-3 mt-1">❌</span>
+                                        <p class="text-red-700 dark:text-red-300">"明明有空卻不來，太不尊重人了"</p>
+                                    </div>
+                                    <div class="flex items-start p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                                        <span class="text-yellow-500 mr-3 mt-1">⚠️</span>
+                                        <p class="text-yellow-700 dark:text-yellow-300">"可能他不習慣參加這種聚會"</p>
+                                    </div>
+                                    <div class="flex items-start p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                                        <span class="text-green-500 mr-3 mt-1">✅</span>
+                                        <p class="text-green-700 dark:text-green-300">"關心地私下詢問是否有什麼顧慮，下次可以如何改善"</p>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg">
+                                <p class="text-sm text-purple-700 dark:text-purple-300">
+                                    <strong>牌背學習重點：</strong> 間接溝通文化、面子觀念、跨文化友誼建立
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Game Flow Example -->
-            <div class="mt-12 bg-gradient-to-r from-primary/10 to-purple-600/10 p-8 rounded-2xl">
-                <h3 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">📝 遊戲流程示例</h3>
-                <div class="grid md:grid-cols-4 gap-6">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">1</div>
-                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">抽取挑戰卡</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">玩家A抽到情境挑戰卡</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">2</div>
-                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">全員回應</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">所有玩家提出解決方案</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">3</div>
-                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">匿名投票</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">選出最不妥當的回應</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">4</div>
-                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">討論學習</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">分享真實案例與心得</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section id="features" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                    特色功能
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    創新的遊戲機制設計，讓學習變得生動有趣
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center card-hover">
-                    <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <span class="text-3xl text-white">🎭</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">情境模擬</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        真實文化衝突場景，讓玩家親身體驗跨文化挑戰
+        <!-- Features -->
+        <section id="features" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                        特色功能
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                        創新的遊戲機制設計，讓學習變得生動有趣
                     </p>
                 </div>
 
-                <div class="text-center card-hover">
-                    <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <span class="text-3xl text-white">🗳️</span>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">🎭</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">情境模擬</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            真實文化衝突場景，讓玩家親身體驗跨文化挑戰
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">匿名投票</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        消除社交壓力，鼓勵誠實反饋與深度思考
-                    </p>
-                </div>
 
-                <div class="text-center card-hover">
-                    <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <span class="text-3xl text-white">📚</span>
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">🗳️</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">匿名投票</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            消除社交壓力，鼓勵誠實反饋與深度思考
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">案例學習</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        牌背真實案例參考，理論與實踐完美結合
-                    </p>
-                </div>
 
-                <div class="text-center card-hover">
-                    <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <span class="text-3xl text-white">🤝</span>
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">📚</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">案例學習</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            牌背真實案例參考，理論與實踐完美結合
+                        </p>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">互動討論</h3>
-                    <p class="text-gray-600 dark:text-gray-400">
-                        促進深度對話，建立真正的文化理解
-                    </p>
+
+                    <div class="text-center card-hover">
+                        <div class="w-20 h-20 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-3xl text-white">🤝</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">互動討論</h3>
+                        <p class="text-gray-600 dark:text-gray-400">
+                            促進深度對話，建立真正的文化理解
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Educational Value -->
-    <section id="education" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                    教育價值
-                </h2>
-                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                    不只是遊戲，更是跨文化教育的創新工具
-                </p>
-            </div>
+        <!-- Educational Value -->
+        <section id="education" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                        教育價值
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                        不只是遊戲，更是跨文化教育的創新工具
+                    </p>
+                </div>
 
-            <div class="grid lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2">
-                    <div class="bg-white dark:bg-card-dark p-10 rounded-2xl shadow-lg h-full">
-                        <h3 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">核心學習目標</h3>
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h4 class="text-xl font-semibold mb-4 text-primary">文化敏感度</h4>
-                                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                                    <li>• 識別文化差異與偏見</li>
-                                    <li>• 理解不同文化背景</li>
-                                    <li>• 培養包容心態</li>
-                                </ul>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2">
+                        <div class="bg-white dark:bg-card-dark p-10 rounded-2xl shadow-lg h-full">
+                            <h3 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">核心學習目標</h3>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-4 text-primary">文化敏感度</h4>
+                                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                        <li>• 識別文化差異與偏見</li>
+                                        <li>• 理解不同文化背景</li>
+                                        <li>• 培養包容心態</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-4 text-primary">溝通技巧</h4>
+                                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                        <li>• 跨文化對話技巧</li>
+                                        <li>• 衝突解決能力</li>
+                                        <li>• 同理心建立</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-4 text-primary">批判思維</h4>
+                                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                        <li>• 多角度分析問題</li>
+                                        <li>• 反思自身行為</li>
+                                        <li>• 理性判斷能力</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold mb-4 text-primary">社會責任</h4>
+                                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                        <li>• 促進社會和諧</li>
+                                        <li>• 建立共融社區</li>
+                                        <li>• 推動文化交流</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="text-xl font-semibold mb-4 text-primary">溝通技巧</h4>
-                                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                                    <li>• 跨文化對話技巧</li>
-                                    <li>• 衝突解決能力</li>
-                                    <li>• 同理心建立</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold mb-4 text-primary">批判思維</h4>
-                                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                                    <li>• 多角度分析問題</li>
-                                    <li>• 反思自身行為</li>
-                                    <li>• 理性判斷能力</li>
-                                </ul>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-semibold mb-4 text-primary">社會責任</h4>
-                                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                                    <li>• 促進社會和諧</li>
-                                    <li>• 建立共融社區</li>
-                                    <li>• 推動文化交流</li>
-                                </ul>
+                        </div>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="bg-primary/10 dark:bg-primary/20 p-8 rounded-2xl">
+                            <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">適用場景</h3>
+                            <ul class="space-y-3 text-gray-700 dark:text-gray-300">
+                                <li class="flex items-center">
+                                    <span class="text-primary mr-3">🏫</span>
+                                    學校課堂教學
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-primary mr-3">🏢</span>
+                                    企業培訓工作坊
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-primary mr-3">🤝</span>
+                                    社區文化活動
+                                </li>
+                                <li class="flex items-center">
+                                    <span class="text-primary mr-3">👥</span>
+                                    團隊建設活動
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-8 rounded-2xl">
+                            <h3 class="text-2xl font-bold mb-4 text-green-800 dark:text-green-400">學習成效</h3>
+                            <div class="text-green-700 dark:text-green-300">
+                                <p class="mb-2">✨ 提升文化理解度</p>
+                                <p class="mb-2">✨ 改善溝通技巧</p>
+                                <p>✨ 建立同理心</p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="space-y-8">
-                    <div class="bg-primary/10 dark:bg-primary/20 p-8 rounded-2xl">
-                        <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">適用場景</h3>
-                        <ul class="space-y-3 text-gray-700 dark:text-gray-300">
-                            <li class="flex items-center">
-                                <span class="text-primary mr-3">🏫</span>
-                                學校課堂教學
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-primary mr-3">🏢</span>
-                                企業培訓工作坊
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-primary mr-3">🤝</span>
-                                社區文化活動
-                            </li>
-                            <li class="flex items-center">
-                                <span class="text-primary mr-3">👥</span>
-                                團隊建設活動
-                            </li>
+        <!-- CTA Section -->
+        <section class="py-20 gradient-bg">
+            <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                    準備開始您的文化之旅？
+                </h2>
+                <p class="text-xl text-white/90 mb-12 leading-relaxed">
+                    立即體驗這款創新的跨文化教育桌遊，讓學習變得更加生動有趣
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <button onclick="showPurchaseModal()" class="bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg">
+                        🎮 立即購買遊戲
+                    </button>
+                    <button onclick="showContactModal()" class="border-2 border-white text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-primary transition-colors">
+                        📧 聯絡我們
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="md:col-span-2">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                                <span class="text-white font-bold text-xl">融</span>
+                            </div>
+                            <h3 class="text-2xl font-bold">融匯香江：文化解難挑戰</h3>
+                        </div>
+                        <p class="text-gray-400 leading-relaxed mb-6">
+                            透過創新桌遊設計，促進跨文化理解與溝通，建構更和諧共融的社會。
+                        </p>
+                        <div class="flex space-x-4">
+                            <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                                <span>📧</span>
+                            </div>
+                            <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                                <span>📱</span>
+                            </div>
+                            <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                                <span>🌐</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">快速連結</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#overview" class="hover:text-white transition-colors">遊戲概覽</a></li>
+                            <li><a href="#rules" onclick="showRulesPage()" class="hover:text-white transition-colors cursor-pointer">遊戲規則</a></li>
+                            <li><a href="#scenarios" class="hover:text-white transition-colors">情境範例</a></li>
+                            <li><a href="#features" class="hover:text-white transition-colors">特色功能</a></li>
+                            <li><a href="#education" class="hover:text-white transition-colors">教育價值</a></li>
                         </ul>
                     </div>
-
-                    <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-8 rounded-2xl">
-                        <h3 class="text-2xl font-bold mb-4 text-green-800 dark:text-green-400">學習成效</h3>
-                        <div class="text-green-700 dark:text-green-300">
-                            <p class="mb-2">✨ 提升文化理解度</p>
-                            <p class="mb-2">✨ 改善溝通技巧</p>
-                            <p>✨ 建立同理心</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-20 gradient-bg">
-        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-                準備開始您的文化之旅？
-            </h2>
-            <p class="text-xl text-white/90 mb-12 leading-relaxed">
-                立即體驗這款創新的跨文化教育桌遊，讓學習變得更加生動有趣
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <button class="bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg">
-                    🎮 立即購買遊戲
-                </button>
-                <button class="border-2 border-white text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-white hover:text-primary transition-colors">
-                    📧 聯絡我們
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-4 mb-6">
-                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
-                            <span class="text-white font-bold text-xl">融</span>
-                        </div>
-                        <h3 class="text-2xl font-bold">融匯香江：文化解難挑戰</h3>
-                    </div>
-                    <p class="text-gray-400 leading-relaxed mb-6">
-                        透過創新桌遊設計，促進跨文化理解與溝通，建構更和諧共融的社會。
-                    </p>
-                    <div class="flex space-x-4">
-                        <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
-                            <span>📧</span>
-                        </div>
-                        <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
-                            <span>📱</span>
-                        </div>
-                        <div class="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
-                            <span>🌐</span>
-                        </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">支援服務</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#" class="hover:text-white transition-colors">使用指南</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">教師資源</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">常見問題</a></li>
+                            <li><a href="#" class="hover:text-white transition-colors">技術支援</a></li>
+                        </ul>
                     </div>
                 </div>
                 
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">快速連結</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#overview" class="hover:text-white transition-colors">遊戲概覽</a></li>
-                        <li><a href="#rules" class="hover:text-white transition-colors">遊戲規則</a></li>
-                        <li><a href="#scenarios" class="hover:text-white transition-colors">情境範例</a></li>
-                        <li><a href="#features" class="hover:text-white transition-colors">特色功能</a></li>
-                        <li><a href="#education" class="hover:text-white transition-colors">教育價值</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">支援服務</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">使用指南</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">教師資源</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">常見問題</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">技術支援</a></li>
-                    </ul>
+                <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                    <p>&copy; 2024 融匯香江：文化解難挑戰. 版權所有.</p>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 融匯香江：文化解難挑戰. 版權所有.</p>
+        </footer>
+    </div>
+
+    <!-- Rules Page -->
+    <div id="rulesPage" class="page">
+        <div class="pt-20 pb-16 gradient-bg">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    遊戲規則詳解
+                </h1>
+                <p class="text-xl text-white/90 mb-8">
+                    完整的遊戲規則指南，讓您快速上手
+                </p>
+                <button onclick="showMainPage()" class="bg-white text-primary px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
+                    ← 返回主頁
+                </button>
             </div>
         </div>
-    </footer>
+
+        <div class="py-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid gap-8">
+                    <!-- Setup -->
+                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-primary text-white rounded-lg flex items-center justify-center font-bold mr-4">1</div>
+                            <h3 class="text-3xl font-bold text-gray-900 dark:text-white">遊戲準備</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">遊戲配件</h4>
+                                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                    <li>• 挑戰情境卡 × 40張</li>
+                                    <li>• 攻擊卡 × 20張</li>
+                                    <li>• 文化卡 × 24張（6種圖案 × 4張）</li>
+                                    <li>• 免死金牌 × 8張</li>
+                                    <li>• 投票卡 × 8張</li>
+                                    <li>• 邊緣化代幣 × 30個</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">初始設置</h4>
+                                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                    <li>• 每位玩家獲得1張投票卡</li>
+                                    <li>• 將所有卡牌洗勻成一副牌</li>
+                                    <li>• 每位玩家抽取5張手牌</li>
+                                    <li>• 將代幣放在中央供所有人取用</li>
+                                    <li>• 決定第一位玩家（年紀最小者）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gameplay -->
+                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-primary text-white rounded-lg flex items-center justify-center font-bold mr-4">2</div>
+                            <h3 class="text-3xl font-bold text-gray-900 dark:text-white">遊戲流程</h3>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
+                                <h4 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">A. 抽牌階段</h4>
+                                <p class="text-gray-700 dark:text-gray-300 mb-3">
+                                    玩家輪流從牌堆頂抽取一張卡牌，直到有人抽到「挑戰卡」為止。
+                                </p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                                        <h5 class="font-semibold text-blue-800 dark:text-blue-300 mb-2">抽到其他卡牌</h5>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300">加入手牌，繼續下一位玩家抽牌</p>
+                                    </div>
+                                    <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg">
+                                        <h5 class="font-semibold text-red-800 dark:text-red-300 mb-2">抽到挑戰卡</h5>
+                                        <p class="text-sm text-red-700 dark:text-red-300">立即進入挑戰階段</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-xl">
+                                <h4 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">B. 挑戰階段</h4>
+                                <ol class="space-y-3 text-gray-700 dark:text-gray-300">
+                                    <li><strong>1. 情境宣讀：</strong>抽到挑戰卡的玩家大聲朗讀情境描述</li>
+                                    <li><strong>2. 思考時間：</strong>所有玩家有60秒思考如何回應</li>
+                                    <li><strong>3. 輪流回應：</strong>從抽卡玩家開始，順時針方向每人提出解決方案</li>
+                                    <li><strong>4. 案例分享：</strong>讀出卡片背面的真實案例參考</li>
+                                </ol>
+                            </div>
+
+                            <div class="bg-green-50 dark:bg-green-900/20 p-6 rounded-xl">
+                                <h4 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">C. 投票階段</h4>
+                                <div class="space-y-3 text-gray-700 dark:text-gray-300">
+                                    <p><strong>目標：</strong>選出「最欠妥當」的回應</p>
+                                    <ol class="space-y-2 ml-4">
+                                        <li>1. 所有玩家閉眼，將投票卡正面朝下放在桌上</li>
+                                        <li>2. 在投票卡上寫下要投票的玩家姓名</li>
+                                        <li>3. 同時翻開所有投票卡</li>
+                                        <li>4. 計算票數，得票最多的玩家獲得1個代幣</li>
+                                        <li>5. 如有平票，所有最高票玩家都獲得代幣</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Cards -->
+                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-primary text-white rounded-lg flex items-center justify-center font-bold mr-4">3</div>
+                            <h3 class="text-3xl font-bold text-gray-900 dark:text-white">特殊卡牌使用</h3>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 p-6 rounded-xl">
+                                <div class="text-center mb-4">
+                                    <span class="text-4xl">🛡️</span>
+                                    <h4 class="text-xl font-bold mt-2 text-gray-900 dark:text-white">免死金牌</h4>
+                                </div>
+                                <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                    <li>• 可抵銷1個代幣</li>
+                                    <li>• 每位玩家整場遊戲限用1次</li>
+                                    <li>• 可在獲得代幣時立即使用</li>
+                                    <li>• 使用後棄置</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 p-6 rounded-xl">
+                                <div class="text-center mb-4">
+                                    <span class="text-4xl">🌏</span>
+                                    <h4 class="text-xl font-bold mt-2 text-gray-900 dark:text-white">文化卡</h4>
+                                </div>
+                                <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                    <li>• 收集2張相同圖案</li>
+                                    <li>• 可轉移攻擊目標</li>
+                                    <li>• 在攻擊卡生效前使用</li>
+                                    <li>• 使用後棄置2張文化卡</li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900/30 dark:to-red-800/30 p-6 rounded-xl">
+                                <div class="text-center mb-4">
+                                    <span class="text-4xl">⚔️</span>
+                                    <h4 class="text-xl font-bold mt-2 text-gray-900 dark:text-white">攻擊卡</h4>
+                                </div>
+                                <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                                    <li>• 指定一位玩家回答問題</li>
+                                    <li>• 答錯獲得1個代幣</li>
+                                    <li>• 可被文化卡轉移目標</li>
+                                    <li>• 使用後棄置</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Winning -->
+                    <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-primary text-white rounded-lg flex items-center justify-center font-bold mr-4">4</div>
+                            <h3 class="text-3xl font-bold text-gray-900 dark:text-white">勝利條件</h3>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-6 rounded-xl">
+                                <h4 class="text-xl font-bold text-red-800 dark:text-red-300 mb-4">淘汰條件</h4>
+                                <div class="space-y-3 text-red-700 dark:text-red-300">
+                                    <p>• 累積3個「邊緣化代幣」立即淘汰</p>
+                                    <p>• 淘汰的玩家「離開香港」</p>
+                                    <p>• 可觀戰但不參與遊戲</p>
+                                </div>
+                            </div>
+                            <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-6 rounded-xl">
+                                <h4 class="text-xl font-bold text-green-800 dark:text-green-300 mb-4">勝利條件</h4>
+                                <div class="space-y-3 text-green-700 dark:text-green-300">
+                                    <p>• 成為最後留在香港的玩家</p>
+                                    <p>• 或當牌堆用盡時代幣最少</p>
+                                    <p>• 獲得「跨文化大使」稱號</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tips -->
+                    <div class="bg-gradient-to-r from-primary/10 to-purple-600/10 p-8 rounded-2xl">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">🎯 遊戲技巧提示</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white mb-3">策略建議</h4>
+                                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>• 仔細聆聽其他玩家的回應</li>
+                                    <li>• 從多個角度思考文化議題</li>
+                                    <li>• 善用特殊卡牌保護自己</li>
+                                    <li>• 積極參與討論學習</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white mb-3">注意事項</h4>
+                                <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                    <li>• 保持開放和尊重的態度</li>
+                                    <li>• 避免人身攻擊或偏見言論</li>
+                                    <li>• 專注學習而非單純競爭</li>
+                                    <li>• 鼓勵深度反思和討論</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Simulator -->
+    <div id="gameSimulator" class="page">
+        <div class="pt-20 pb-16 gradient-bg">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                    遊戲模擬器
+                </h1>
+                <p class="text-xl text-white/90 mb-8">
+                    體驗真實的遊戲流程
+                </p>
+                <button onclick="showMainPage()" class="bg-white text-primary px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 transition-colors">
+                    ← 返回主頁
+                </button>
+            </div>
+        </div>
+
+        <div class="py-12">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Game Status -->
+                <div class="bg-white dark:bg-card-dark p-6 rounded-2xl shadow-lg mb-8">
+                    <div class="grid md:grid-cols-3 gap-6 text-center">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">當前玩家</h3>
+                            <p id="currentPlayer" class="text-2xl font-bold text-primary">玩家 1</p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">回合數</h3>
+                            <p id="roundNumber" class="text-2xl font-bold text-primary">1</p>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">剩餘卡牌</h3>
+                            <p id="cardsRemaining" class="text-2xl font-bold text-primary">52</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Area -->
+                <div class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg mb-8">
+                    <div id="gamePhase" class="text-center">
+                        <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">準備開始遊戲</h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-8">點擊下方按鈕開始抽牌</p>
+                        <button onclick="drawCard()" id="drawButton" class="bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-colors">
+                            🎴 抽取卡牌
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Current Card Display -->
+                <div id="cardDisplay" class="bg-white dark:bg-card-dark p-8 rounded-2xl shadow-lg mb-8" style="display: none;">
+                    <div class="text-center mb-6">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white" id="cardTitle">卡牌標題</h3>
+                        <div class="mt-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
+                            <p id="cardContent" class="text-gray-700 dark:text-gray-300 leading-relaxed">卡牌內容</p>
+                        </div>
+                    </div>
+                    <div id="cardActions" class="text-center">
+                        <!-- Dynamic content will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Player Status -->
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">玩家 1</h4>
+                        <div class="space-y-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">代幣: <span id="player1Tokens" class="font-bold text-red-500">0</span></p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">手牌: <span id="player1Cards" class="font-bold">5</span></p>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">玩家 2</h4>
+                        <div class="space-y-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">代幣: <span id="player2Tokens" class="font-bold text-red-500">0</span></p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">手牌: <span id="player2Cards" class="font-bold">5</span></p>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">玩家 3</h4>
+                        <div class="space-y-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">代幣: <span id="player3Tokens" class="font-bold text-red-500">0</span></p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">手牌: <span id="player3Cards" class="font-bold">5</span></p>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-card-dark p-6 rounded-xl shadow-lg text-center">
+                        <h4 class="font-semibold text-gray-900 dark:text-white mb-2">玩家 4</h4>
+                        <div class="space-y-2">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">代幣: <span id="player4Tokens" class="font-bold text-red-500">0</span></p>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">手牌: <span id="player4Cards" class="font-bold">5</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reset Game -->
+                <div class="text-center mt-8">
+                    <button onclick="resetGame()" class="bg-gray-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gray-600 transition-colors">
+                        🔄 重新開始
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="bg-white dark:bg-card-dark rounded-2xl shadow-2xl max-w-md w-full mx-4 p-8">
+            <div class="text-center mb-6">
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">購買遊戲</h3>
+                <p class="text-gray-600 dark:text-gray-400">填寫您的聯絡資訊，我們將盡快與您聯繫</p>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">姓名 *</label>
+                    <input type="text" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="請輸入您的姓名">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">電子郵件 *</label>
+                    <input type="email" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="請輸入您的電子郵件">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">電話號碼</label>
+                    <input type="tel" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="請輸入您的電話號碼">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">購買數量</label>
+                    <select class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                        <option value="1">1 套</option>
+                        <option value="2">2 套</option>
+                        <option value="5">5 套（團體優惠）</option>
+                        <option value="10">10 套（學校優惠）</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">備註</label>
+                    <textarea rows="3" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="有什麼特別需求嗎？"></textarea>
+                </div>
+            </form>
+            <div class="flex space-x-4 mt-8">
+                <button onclick="hidePurchaseModal()" class="flex-1 px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
+                    取消
+                </button>
+                <button onclick="submitPurchase()" class="flex-1 px-6 py-3 bg-primary text-white hover:bg-primary-dark rounded-xl transition-colors font-semibold">
+                    提交訂單
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="bg-white dark:bg-card-dark rounded-2xl shadow-2xl max-w-md w-full mx-4 p-8">
+            <div class="text-center mb-6">
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">聯絡我們</h3>
+                <p class="text-gray-600 dark:text-gray-400">有任何問題嗎？我們很樂意為您解答</p>
+            </div>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">姓名 *</label>
+                    <input type="text" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="請輸入您的姓名">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">電子郵件 *</label>
+                    <input type="email" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="請輸入您的電子郵件">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">主題</label>
+                    <select class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                        <option value="general">一般詢問</option>
+                        <option value="purchase">購買相關</option>
+                        <option value="education">教育合作</option>
+                        <option value="support">技術支援</option>
+                        <option value="feedback">意見回饋</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">訊息內容 *</label>
+                    <textarea rows="4" class="w-full px-4 py-3 text-base border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="請描述您的問題或需求..."></textarea>
+                </div>
+            </form>
+            <div class="flex space-x-4 mt-8">
+                <button onclick="hideContactModal()" class="flex-1 px-6 py-3 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
+                    取消
+                </button>
+                <button onclick="submitContact()" class="flex-1 px-6 py-3 bg-primary text-white hover:bg-primary-dark rounded-xl transition-colors font-semibold">
+                    發送訊息
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Dark mode detection
@@ -663,12 +890,254 @@
             }
         });
 
+        // Page Navigation
+        function showMainPage() {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('mainPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showRulesPage() {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('rulesPage').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showGameSimulator() {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById('gameSimulator').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Modal Functions
+        function showPurchaseModal() {
+            document.getElementById('purchaseModal').classList.add('active');
+        }
+
+        function hidePurchaseModal() {
+            document.getElementById('purchaseModal').classList.remove('active');
+        }
+
+        function showContactModal() {
+            document.getElementById('contactModal').classList.add('active');
+        }
+
+        function hideContactModal() {
+            document.getElementById('contactModal').classList.remove('active');
+        }
+
+        function submitPurchase() {
+            // Here you would typically send the form data to a server
+            showSuccessMessage('訂單已提交！我們將盡快與您聯繫。');
+            hidePurchaseModal();
+        }
+
+        function submitContact() {
+            // Here you would typically send the form data to a server
+            showSuccessMessage('訊息已發送！我們會在24小時內回覆您。');
+            hideContactModal();
+        }
+
+        function showSuccessMessage(message) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl max-w-sm w-full mx-4 text-center">
+                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">✅</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">成功！</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">${message}</p>
+                    <button onclick="this.closest('.fixed').remove()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors">
+                        確定
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Game Simulator
+        let gameState = {
+            currentPlayer: 1,
+            round: 1,
+            cardsRemaining: 52,
+            players: [
+                { tokens: 0, cards: 5 },
+                { tokens: 0, cards: 5 },
+                { tokens: 0, cards: 5 },
+                { tokens: 0, cards: 5 }
+            ]
+        };
+
+        const challengeCards = [
+            {
+                title: "🏢 職場午餐聚會",
+                content: "你的團隊計劃週五午餐聚會慶祝項目完成。有位穆斯林同事因宗教因素不能參加酒吧聚餐，但沒有主動提及。當大家興奮討論聚會地點時，你注意到他顯得有些不自在..."
+            },
+            {
+                title: "🎉 生日派對邀請",
+                content: "你邀請新認識的南亞裔朋友參加生日派對。他禮貌地說'我考慮一下'，但之後一直沒有回覆。派對當天他沒有出現，你在社交媒體上看到他在家中的照片..."
+            },
+            {
+                title: "🚇 地鐵座位爭議",
+                content: "在繁忙的地鐵車廂內，一位老人家用廣東話大聲批評一群說普通話的年輕人佔用優先座位。其他乘客開始側目，氣氛變得緊張..."
+            }
+        ];
+
+        const regularCards = [
+            { type: "文化卡", content: "亞洲文化圖案" },
+            { type: "攻擊卡", content: "指定一位玩家回答文化問題" },
+            { type: "免死金牌", content: "可抵銷一次代幣懲罰" }
+        ];
+
+        function drawCard() {
+            if (gameState.cardsRemaining <= 0) {
+                endGame();
+                return;
+            }
+
+            gameState.cardsRemaining--;
+            document.getElementById('cardsRemaining').textContent = gameState.cardsRemaining;
+
+            // 20% chance to draw challenge card
+            if (Math.random() < 0.2) {
+                drawChallengeCard();
+            } else {
+                drawRegularCard();
+            }
+        }
+
+        function drawChallengeCard() {
+            const card = challengeCards[Math.floor(Math.random() * challengeCards.length)];
+            
+            document.getElementById('gamePhase').innerHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">挑戰階段</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8">玩家 ${gameState.currentPlayer} 抽到了挑戰卡！</p>
+            `;
+
+            document.getElementById('cardDisplay').style.display = 'block';
+            document.getElementById('cardTitle').textContent = card.title;
+            document.getElementById('cardContent').textContent = card.content;
+            document.getElementById('cardActions').innerHTML = `
+                <div class="space-y-4">
+                    <p class="text-gray-600 dark:text-gray-400">所有玩家請思考如何回應這個情境...</p>
+                    <button onclick="startVoting()" class="bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors">
+                        🗳️ 開始投票
+                    </button>
+                </div>
+            `;
+        }
+
+        function drawRegularCard() {
+            const card = regularCards[Math.floor(Math.random() * regularCards.length)];
+            
+            document.getElementById('gamePhase').innerHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">抽牌階段</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8">玩家 ${gameState.currentPlayer} 抽到了 ${card.type}</p>
+            `;
+
+            document.getElementById('cardDisplay').style.display = 'block';
+            document.getElementById('cardTitle').textContent = card.type;
+            document.getElementById('cardContent').textContent = card.content;
+            document.getElementById('cardActions').innerHTML = `
+                <button onclick="nextPlayer()" class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-primary-dark transition-colors">
+                    ➡️ 下一位玩家
+                </button>
+            `;
+
+            gameState.players[gameState.currentPlayer - 1].cards++;
+            updatePlayerDisplay();
+        }
+
+        function startVoting() {
+            document.getElementById('cardActions').innerHTML = `
+                <div class="space-y-4">
+                    <p class="text-gray-600 dark:text-gray-400">投票結果：玩家 ${Math.floor(Math.random() * 4) + 1} 獲得最多票數</p>
+                    <button onclick="applyVoteResult()" class="bg-red-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors">
+                        ⚠️ 應用投票結果
+                    </button>
+                </div>
+            `;
+        }
+
+        function applyVoteResult() {
+            const targetPlayer = Math.floor(Math.random() * 4);
+            gameState.players[targetPlayer].tokens++;
+            
+            if (gameState.players[targetPlayer].tokens >= 3) {
+                showSuccessMessage(`玩家 ${targetPlayer + 1} 累積3個代幣，被淘汰了！`);
+            }
+            
+            updatePlayerDisplay();
+            nextPlayer();
+        }
+
+        function nextPlayer() {
+            gameState.currentPlayer = (gameState.currentPlayer % 4) + 1;
+            gameState.round++;
+            
+            document.getElementById('currentPlayer').textContent = `玩家 ${gameState.currentPlayer}`;
+            document.getElementById('roundNumber').textContent = gameState.round;
+            
+            document.getElementById('cardDisplay').style.display = 'none';
+            document.getElementById('gamePhase').innerHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">輪到玩家 ${gameState.currentPlayer}</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8">點擊下方按鈕抽牌</p>
+                <button onclick="drawCard()" class="bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-colors">
+                    🎴 抽取卡牌
+                </button>
+            `;
+        }
+
+        function updatePlayerDisplay() {
+            for (let i = 0; i < 4; i++) {
+                document.getElementById(`player${i + 1}Tokens`).textContent = gameState.players[i].tokens;
+                document.getElementById(`player${i + 1}Cards`).textContent = gameState.players[i].cards;
+            }
+        }
+
+        function resetGame() {
+            gameState = {
+                currentPlayer: 1,
+                round: 1,
+                cardsRemaining: 52,
+                players: [
+                    { tokens: 0, cards: 5 },
+                    { tokens: 0, cards: 5 },
+                    { tokens: 0, cards: 5 },
+                    { tokens: 0, cards: 5 }
+                ]
+            };
+            
+            document.getElementById('currentPlayer').textContent = '玩家 1';
+            document.getElementById('roundNumber').textContent = '1';
+            document.getElementById('cardsRemaining').textContent = '52';
+            document.getElementById('cardDisplay').style.display = 'none';
+            document.getElementById('gamePhase').innerHTML = `
+                <h2 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">準備開始遊戲</h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-8">點擊下方按鈕開始抽牌</p>
+                <button onclick="drawCard()" class="bg-primary text-white px-8 py-4 rounded-xl font-semibold hover:bg-primary-dark transition-colors">
+                    🎴 抽取卡牌
+                </button>
+            `;
+            
+            updatePlayerDisplay();
+        }
+
+        function endGame() {
+            const winner = gameState.players.reduce((min, player, index) => 
+                player.tokens < gameState.players[min].tokens ? index : min, 0);
+            
+            showSuccessMessage(`遊戲結束！玩家 ${winner + 1} 獲勝！`);
+        }
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('onclick')) return; // Skip if it has onclick handler
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
+                if (target && document.getElementById('mainPage').classList.contains('active')) {
                     target.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
@@ -687,27 +1156,11 @@
             }
         });
 
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all sections for animation
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
+        // Close modals when clicking outside
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
         });
     </script>
 </body>
