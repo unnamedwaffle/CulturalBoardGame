@@ -26,7 +26,20 @@
     </script>
     <style>
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* Option 1: Use an image URL from allowed domains */
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%), 
+                        url('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80') center/cover;
+            /* Option 2: If you have your own image, replace the URL above */
+            /* Option 3: Keep original gradient - comment out the line above and uncomment below */
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+        }
+        
+        /* Add this class for custom background images */
+        .custom-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
         .card-hover {
             transition: all 0.3s ease;
@@ -100,7 +113,7 @@
                     </h1>
                     <p class="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed">
                         透過情境模擬促進文化理解<br>
-                        建構跨文化溝通橋樑的創新桌遊
+                        架設跨文化溝通橋樑的創新桌遊體驗
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <button onclick="showGameSimulator()" class="bg-white text-primary px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-colors shadow-lg">
@@ -122,7 +135,7 @@
                         遊戲概覽
                     </h2>
                     <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                        一款融合真實文化情境的互動桌遊，讓玩家在挑戰中學習跨文化理解與溝通技巧
+                        融合真實文化情境的互動桌遊，讓玩家透過挑戰學習跨文化理解與溝通技巧
                     </p>
                 </div>
                 
